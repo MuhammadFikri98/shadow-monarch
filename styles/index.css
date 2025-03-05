@@ -1,0 +1,57 @@
+body {
+  background: url("/images/background-home.jpg") no-repeat center center/cover;
+  color: #d1c4e9;
+  font-family: "Cinzel", serif;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+}
+
+.title {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-shadow: 0 0 10px #673ab7;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.btn {
+  font-size: 1.2em;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.start {
+  background: linear-gradient(45deg, #673ab7, #311b92);
+  color: #fff;
+  box-shadow: 0 0 10px #673ab7;
+}
+
+.scores {
+  background: linear-gradient(45deg, #d500f9, #6200ea);
+  color: #fff;
+  box-shadow: 0 0 10px #d500f9;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
