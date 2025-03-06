@@ -129,11 +129,11 @@ button:hover {
 }
 
 .modal-content {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 255, 89, 0.9);
   padding: 20px;
   text-align: center;
   border-radius: 10px;
-  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.636);
   width: 300px;
 }
 
