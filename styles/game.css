@@ -2,7 +2,7 @@ body {
   font-family: "Cinzel", Spongeboy Me Bob;
   text-align: center;
   background: black;
-  background-image: url("/images/background-game.jpg");
+  background-image: url("../images/background-game.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -118,6 +118,12 @@ button:hover {
   transition: transform 0.3s, filter 0.3s ease-in-out;
 }
 
+.card.matched img {
+  pointer-events: none; /* Cegah interaksi */
+  user-select: none; /* Cegah pemilihan */
+  -webkit-user-drag: none; /* Blokir drag di Safari */
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -165,4 +171,8 @@ button:hover {
   background: #ffff00;
   transform: scale(1.1);
   box-shadow: 0 0 20px #ffff00;
+}
+
+.no-click {
+  pointer-events: none;
 }

@@ -1,7 +1,9 @@
 const gameBoard = document.getElementById("game-board");
 const timer = document.getElementById("timer");
+const matchSound = new Audio("sound-matched2.mp3");
+
 const scoreDisplay = document.getElementById("score");
-let timeLeft = 30;
+let timeLeft = 40;
 let score = 0;
 let cards = [];
 let flippedCards = [];
@@ -32,8 +34,10 @@ function createBoard() {
 
     const img = document.createElement("img");
     img.src = `images/${imgSrc}`;
-    card.appendChild(img);
+    img.draggable = false; // Pastikan gambar tidak bisa di-drag
+    img.setAttribute("draggable", "false"); // Alternatif tambahan
 
+    card.appendChild(img);
     card.addEventListener("click", flipCard);
     gameBoard.appendChild(card);
     cards.push(card);
@@ -41,14 +45,21 @@ function createBoard() {
 }
 
 function flipCard() {
-  if (flippedCards.length < 2 && !this.classList.contains("flipped")) {
-    this.classList.add("flipped");
-    flippedCards.push(this);
-    playFlipSound(); // Mainkan suara saat kartu dibalik
+  if (
+    flippedCards.length >= 2 ||
+    this.classList.contains("flipped") ||
+    this.classList.contains("matched")
+  ) {
+    return; // Jangan izinkan klik jika sudah match
   }
 
+  this.classList.add("flipped");
+  flippedCards.push(this);
+  playFlipSound();
+
   if (flippedCards.length === 2) {
-    setTimeout(checkMatch, 500);
+    gameBoard.classList.add("no-click");
+    setTimeout(checkMatch, 400);
   }
 }
 
@@ -58,13 +69,22 @@ function checkMatch() {
     score += 10;
     scoreDisplay.textContent = score;
 
-    // Tambahkan efek menyala pada kartu yang sudah cocok
+    playMatchSound();
+
     card1.classList.add("matched");
     card2.classList.add("matched");
 
-    flippedCards = [];
+    // Cegah gambar matched agar tidak bisa di-drag
+    const img1 = card1.querySelector("img");
+    const img2 = card2.querySelector("img");
+    img1.draggable = false;
+    img2.draggable = false;
+    img1.setAttribute("draggable", "false");
+    img2.setAttribute("draggable", "false");
 
-    // Cek apakah semua kartu telah dicocokkan
+    flippedCards = [];
+    gameBoard.classList.remove("no-click"); // Izinkan klik lagi
+
     if (document.querySelectorAll(".card.matched").length === cards.length) {
       setTimeout(resetGame, 1000);
     }
@@ -73,7 +93,8 @@ function checkMatch() {
       card1.classList.remove("flipped");
       card2.classList.remove("flipped");
       flippedCards = [];
-    }, 250);
+      gameBoard.classList.remove("no-click"); // Izinkan klik setelah kartu kembali
+    }, 300);
   }
 }
 
@@ -117,7 +138,6 @@ function endGame() {
         : '<button id="try-again-btn">Try Again</button>'
     }
   `;
-  
 
   document.getElementById("score-modal").style.display = "flex";
 
@@ -126,7 +146,7 @@ function endGame() {
     document
       .getElementById("try-again-btn")
       .addEventListener("click", restartGame);
-      playSadSound()
+    playSadSound();
   } else {
     playWinSound();
   }
@@ -138,7 +158,7 @@ function restartGame() {
 
   // Reset skor dan waktu
   score = 0;
-  timeLeft = 30;
+  timeLeft = 40;
   scoreDisplay.textContent = score;
   timer.textContent = timeLeft;
 
@@ -205,6 +225,18 @@ function playWinSound() {
   winSound.currentTime = 0; // Restart suara jika sudah dimainkan sebelumnya
   winSound.play();
 }
+
+function playMatchSound() {
+  const sound = new Audio("sound-matched2.mp3"); // Buat objek audio baru
+  sound.volume = 1.0; // Maksimalkan volume
+  sound.play().catch((error) => console.log("Audio error:", error));
+}
+
+document.addEventListener("dragstart", (event) => {
+  if (event.target.tagName === "IMG") {
+    event.preventDefault();
+  }
+});
 
 createBoard();
 startTimer();
