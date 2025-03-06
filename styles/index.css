@@ -1,9 +1,9 @@
 body {
-  background: url("/images/background-home.jpg") no-repeat center center/cover;
+  background: url("../images/background-home.jpg") no-repeat center center/cover;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  color:#000000;
+  color: #000000;
   margin: 0;
   padding: 0;
   color: #fff700;
@@ -27,7 +27,7 @@ body {
   font-size: 5em;
   font-weight: bold;
   text-shadow: 0 0 10px #ffff00;
-  
+
   margin-bottom: 20px;
   margin-top: 0px;
 }
