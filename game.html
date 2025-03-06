@@ -7,25 +7,29 @@
     <link rel="stylesheet" href="styles/game.css" />
   </head>
   <body>
-    <p>tes</p>
     <div class="container">
       <h1>Gallery Shadow Monarch</h1>
       <div id="game-board" class="game-board"></div>
-      <p>Waktu: <span id="timer">00</span> detik</p>
+      <p>Waktu: <span id="timer">00:00</span></p>
       <p>Skor: <span id="score">0</span></p>
-      <button type="button" onclick="goHome()">Kembali ke Home</button>
-      <button type="button" onclick="goToScore()">Lihat Skor</button>
+      <button id="home-btn">Kembali ke Home</button>
+      <button id="score-btn">Lihat Skor</button>
     </div>
-    <script>
-      function goHome() {
-        window.location.href = "index.html";
-      }
 
-      function goToScore() {
-        window.location.href = "score.html";
-      }
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("home-btn").addEventListener("click", function () {
+          window.location.href = "index.html";
+        });
+
+        document.getElementById("score-btn").addEventListener("click", function () {
+          window.location.href = "score.html";
+        });
+      });
     </script>
+    
     <script src="javascript/game.js"></script>
   </body>
 </html>
+
 
