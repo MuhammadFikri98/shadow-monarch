@@ -1,7 +1,7 @@
 const gameBoard = document.getElementById("game-board");
 const timer = document.getElementById("timer");
 const scoreDisplay = document.getElementById("score");
-let timeLeft = 60;
+let timeLeft = 15;
 let score = 0;
 let cards = [];
 let flippedCards = [];
@@ -58,7 +58,6 @@ function checkMatch() {
     scoreDisplay.textContent = score;
     flippedCards = [];
 
-    // Cek apakah semua kartu telah dicocokkan
     if (document.querySelectorAll(".card.flipped").length === cards.length) {
       setTimeout(resetGame, 1000);
     }
@@ -72,12 +71,9 @@ function checkMatch() {
 }
 
 function resetGame() {
-  // Kosongkan papan permainan
   gameBoard.innerHTML = "";
   cards = [];
   flippedCards = [];
-
-  // Acak ulang kartu
   createBoard();
 }
 
@@ -93,27 +89,44 @@ function startTimer() {
 }
 
 function endGame() {
-  const finalScore = score;
+  // Tampilkan modal input nama
+  document.getElementById("final-score").textContent = score;
+  document.getElementById("score-modal").style.display = "flex";
+}
+
+// Simpan skor setelah input nama
+function saveScore() {
+  const playerName = document.getElementById("player-name").value.trim();
+  if (!playerName) return alert("Nama tidak boleh kosong!");
+
+  if (playerName.length > 15) {
+    return alert("Nama tidak boleh lebih dari 15 karakter!");
+  }
+
   let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
 
-  // Tambahkan skor baru
-  leaderboard.push(finalScore);
+  // Jika leaderboard bukan array objek, reset ke array kosong
+  if (
+    !Array.isArray(leaderboard) ||
+    !leaderboard.every((entry) => typeof entry === "object")
+  ) {
+    leaderboard = [];
+  }
 
-  // Urutkan dari yang terbesar ke terkecil
-  leaderboard.sort((a, b) => b - a);
+  // Pastikan format data benar sebelum disimpan
+  const newEntry = { name: playerName, score: Number(score) };
+  leaderboard.push(newEntry);
+  leaderboard.sort((a, b) => b.score - a.score);
+  leaderboard = leaderboard.slice(0, 5); // Simpan hanya 5 skor tertinggi
 
-  // Simpan hanya 5 skor tertinggi
-  leaderboard = leaderboard.slice(0, 5);
-
-  // Simpan ke localStorage
   localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
 
-  alert(`Well done! Your Score: ${finalScore}`);
+  console.log(
+    "Leaderboard setelah update:",
+    JSON.parse(localStorage.getItem("leaderboard"))
+  );
 
-  // Pastikan leaderboard tersimpan sebelum pindah halaman
-  setTimeout(() => {
-    window.location.href = "score.html";
-  }, 500);
+  window.location.href = "score.html";
 }
 
 createBoard();
