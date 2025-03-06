@@ -29,8 +29,10 @@ h1 {
   justify-content: center;
   margin-top: 20px;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.5);
+  background: #00000067;
   border-radius: 15px;
+  margin-left: 450px;
+  margin-right: 450px;
   box-shadow: 0 4px 15px #ffff00;
 }
 

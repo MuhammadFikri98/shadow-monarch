@@ -108,7 +108,7 @@ function endGame() {
   // Simpan ke localStorage
   localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
 
-  alert(`Permainan selesai! Skor Anda: ${finalScore}`);
+  alert(`Well done! Your Score: ${finalScore}`);
 
   // Pastikan leaderboard tersimpan sebelum pindah halaman
   setTimeout(() => {
