@@ -108,7 +108,7 @@ function endGame() {
 
   const modalContent = document.querySelector(".modal-content");
   modalContent.innerHTML = `
-    <h2>${isTop5 ? "Well Done!" : "Game Over"}</h2>
+    <h2>${isTop5 ? "Well Done!" : "Game Over!"}</h2>
     <p>Your Score: <span id="final-score">${score}</span></p>
     ${
       isTop5
@@ -117,6 +117,7 @@ function endGame() {
         : '<button id="try-again-btn">Try Again</button>'
     }
   `;
+  
 
   document.getElementById("score-modal").style.display = "flex";
 
@@ -125,6 +126,9 @@ function endGame() {
     document
       .getElementById("try-again-btn")
       .addEventListener("click", restartGame);
+      playSadSound()
+  } else {
+    playWinSound();
   }
 }
 
@@ -184,10 +188,22 @@ function saveScore() {
 }
 
 const flipSound = new Audio("sound-transition.mp3"); //
+const sadSound = new Audio("sound-gameOver.mp3");
+const winSound = new Audio("sound-win.mp3");
 
 function playFlipSound() {
   flipSound.currentTime = 0; // Restart suara jika sudah dimainkan sebelumnya
   flipSound.play();
+}
+
+function playSadSound() {
+  sadSound.currentTime = 0; // Restart suara jika sudah dimainkan sebelumnya
+  sadSound.play();
+}
+
+function playWinSound() {
+  winSound.currentTime = 0; // Restart suara jika sudah dimainkan sebelumnya
+  winSound.play();
 }
 
 createBoard();
