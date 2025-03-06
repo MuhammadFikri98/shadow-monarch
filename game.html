@@ -9,7 +9,7 @@
   <body>
     <div class="container">
       <h1>Match the Cards!</h1>
-      <div id="game-board" class="game-board"></div>
+      <div id="game-board" class="game-board"></div>  
       <p>Time: <span id="timer">00:00</span></p>
       <p>Score: <span id="score">0</span></p>
       <button id="home-btn">Back to Main Menu</button>
@@ -24,6 +24,9 @@
         <input type="text" id="player-name" placeholder="Input your name" />
         <button onclick="saveScore()">Save</button>
       </div>
+      <audio hidden autoplay loop>
+        <source src="music-game.mp3" type="audio/mpeg">
+        </audio>
     </div>
 
     <script>
@@ -40,6 +43,7 @@
             window.location.href = "score.html";
           });
       });
+
     </script>
 
     <script src="javascript/game.js"></script>
