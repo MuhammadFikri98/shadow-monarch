@@ -1,7 +1,13 @@
 body {
   background: url("/images/background-home.jpg") no-repeat center center/cover;
-  color: #d1c4e9;
-  font-family: "Cinzel", serif;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color:#000000;
+  margin: 0;
+  padding: 0;
+  color: #fff700;
+  font-family: "Cinzel", Spongeboy Me Bob;
   text-align: center;
   height: 100vh;
   display: flex;
@@ -12,16 +18,18 @@ body {
 
 .container {
   background: rgba(0, 0, 0, 0.8);
-  padding: 30px;
-  border-radius: 15px;
+  padding: 50px;
+  border-radius: 75px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
 }
 
 .title {
-  font-size: 2.5em;
+  font-size: 5em;
   font-weight: bold;
-  text-shadow: 0 0 10px #673ab7;
+  text-shadow: 0 0 10px #ffff00;
+  
   margin-bottom: 20px;
+  margin-top: 0px;
 }
 
 .button-container {
@@ -31,8 +39,8 @@ body {
 }
 
 .btn {
-  font-size: 1.2em;
-  padding: 12px 25px;
+  font-size: 1em;
+  padding: 10px 25px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -40,15 +48,17 @@ body {
 }
 
 .start {
-  background: linear-gradient(45deg, #673ab7, #311b92);
-  color: #fff;
-  box-shadow: 0 0 10px #673ab7;
+  background: linear-gradient(45deg, #fffb00, #ff007b);
+  font-family: "Cinzel", Spongeboy Me Bob;
+  color: #000000;
+  box-shadow: 0 0 10px #ffff00;
 }
 
 .scores {
-  background: linear-gradient(45deg, #d500f9, #6200ea);
-  color: #fff;
-  box-shadow: 0 0 10px #d500f9;
+  background: linear-gradient(45deg, #fffb00, #ff007b);
+  font-family: "Cinzel", Spongeboy Me Bob;
+  color: #000000;
+  box-shadow: 0 0 10px #ffff00;
 }
 
 .btn:hover {

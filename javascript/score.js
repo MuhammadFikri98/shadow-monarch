@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Tampilkan leaderboard yang telah diperbarui
   leaderboard.forEach((score, index) => {
     const listItem = document.createElement("li");
-    listItem.textContent = `#${index + 1}: ${score} Poin`;
+    listItem.textContent = `#${index + 1}: ${score} Points`;
     leaderboardList.appendChild(listItem);
   });
 });
