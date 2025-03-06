@@ -44,6 +44,7 @@ function flipCard() {
   if (flippedCards.length < 2 && !this.classList.contains("flipped")) {
     this.classList.add("flipped");
     flippedCards.push(this);
+    playFlipSound(); // Mainkan suara saat kartu dibalik
   }
 
   if (flippedCards.length === 2) {
@@ -56,10 +57,15 @@ function checkMatch() {
   if (card1.dataset.image === card2.dataset.image) {
     score += 10;
     scoreDisplay.textContent = score;
+
+    // Tambahkan efek menyala pada kartu yang sudah cocok
+    card1.classList.add("matched");
+    card2.classList.add("matched");
+
     flippedCards = [];
 
     // Cek apakah semua kartu telah dicocokkan
-    if (document.querySelectorAll(".card.flipped").length === cards.length) {
+    if (document.querySelectorAll(".card.matched").length === cards.length) {
       setTimeout(resetGame, 1000);
     }
   } else {
@@ -93,18 +99,62 @@ function startTimer() {
 }
 
 function endGame() {
-  // Tampilkan modal input nama
   document.getElementById("final-score").textContent = score;
+  const leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+  // Cek apakah skor masuk top 5 leaderboard
+  const isTop5 =
+    leaderboard.length < 5 || score > leaderboard[leaderboard.length - 1].score;
+
+  const modalContent = document.querySelector(".modal-content");
+  modalContent.innerHTML = `
+    <h2>${isTop5 ? "Well Done!" : "Game Over"}</h2>
+    <p>Your Score: <span id="final-score">${score}</span></p>
+    ${
+      isTop5
+        ? '<input type="text" id="player-name" placeholder="Input your name" />' +
+          '<button onclick="saveScore()">Save</button>'
+        : '<button id="try-again-btn">Try Again</button>'
+    }
+  `;
+
   document.getElementById("score-modal").style.display = "flex";
+
+  // Tambahkan event listener ke tombol "Try Again" jika tidak masuk top 5
+  if (!isTop5) {
+    document
+      .getElementById("try-again-btn")
+      .addEventListener("click", restartGame);
+  }
+}
+
+function restartGame() {
+  // Sembunyikan modal skor
+  document.getElementById("score-modal").style.display = "none";
+
+  // Reset skor dan waktu
+  score = 0;
+  timeLeft = 30;
+  scoreDisplay.textContent = score;
+  timer.textContent = timeLeft;
+
+  // Kosongkan papan permainan dan buat ulang
+  gameBoard.innerHTML = "";
+  cards = [];
+  flippedCards = [];
+  createBoard();
+
+  // Mulai ulang timer
+  startTimer();
 }
 
 // Simpan skor setelah input nama
 function saveScore() {
   const playerName = document.getElementById("player-name").value.trim();
-  if (!playerName) return alert("Nama tidak boleh kosong!");
+  if (!playerName) return alert("Name cannot be empty!");
 
   if (playerName.length > 15) {
-    return alert("Nama tidak boleh lebih dari 15 karakter!");
+    return alert("Name must not be more than 15 characters!");
   }
 
   let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
@@ -131,6 +181,13 @@ function saveScore() {
   );
 
   window.location.href = "score.html";
+}
+
+const flipSound = new Audio("sound-transition.mp3"); //
+
+function playFlipSound() {
+  flipSound.currentTime = 0; // Restart suara jika sudah dimainkan sebelumnya
+  flipSound.play();
 }
 
 createBoard();

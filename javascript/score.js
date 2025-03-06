@@ -1,7 +1,3 @@
-function restartGame() {
-  window.location.href = "index.html";
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   const leaderboardList = document.getElementById("leaderboard");
   let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
