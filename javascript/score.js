@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   leaderboardList.innerHTML = "";
 
   if (!Array.isArray(leaderboard) || leaderboard.length === 0) {
-    leaderboardList.innerHTML = "<li>Belum ada skor</li>";
+    leaderboardList.innerHTML = "<li>There are no scores yet</li>";
     return;
   }
 
