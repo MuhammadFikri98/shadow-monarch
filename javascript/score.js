@@ -6,19 +6,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const leaderboardList = document.getElementById("leaderboard");
   let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
 
-  // Kosongkan leaderboard sebelum mengisi ulang
+  console.log("Data leaderboard di localStorage:", leaderboard); // Debugging
+
   leaderboardList.innerHTML = "";
 
-  // Jika tidak ada skor tersimpan
-  if (leaderboard.length === 0) {
+  if (!Array.isArray(leaderboard) || leaderboard.length === 0) {
     leaderboardList.innerHTML = "<li>Belum ada skor</li>";
     return;
   }
 
-  // Tampilkan leaderboard yang telah diperbarui
-  leaderboard.forEach((score, index) => {
-    const listItem = document.createElement("li");
-    listItem.textContent = `#${index + 1}: ${score} Points`;
-    leaderboardList.appendChild(listItem);
+  leaderboard.forEach((entry, index) => {
+    if (entry.name && typeof entry.score === "number") {
+      const listItem = document.createElement("li");
+
+      listItem.innerHTML = `
+      <span class="rank">#${index + 1}</span>
+      <span class="name">${entry.name}</span>
+      <span class="score">${entry.score} Points</span>
+    `;
+
+      leaderboardList.appendChild(listItem);
+    } else {
+      console.error("Data leaderboard rusak:", entry);
+    }
   });
 });

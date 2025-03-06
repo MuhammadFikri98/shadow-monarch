@@ -16,20 +16,32 @@
       <button id="score-btn">Leaderboard</button>
     </div>
 
+    <!-- Modal Input Skor -->
+    <div id="score-modal" class="modal">
+      <div class="modal-content">
+        <h2>Game Over</h2>
+        <p>Skor Anda: <span id="final-score">0</span></p>
+        <input type="text" id="player-name" placeholder="Masukkan Nama Anda" />
+        <button onclick="saveScore()">Simpan Skor</button>
+      </div>
+    </div>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("home-btn").addEventListener("click", function () {
-          window.location.href = "index.html";
-        });
+        document
+          .getElementById("home-btn")
+          .addEventListener("click", function () {
+            window.location.href = "index.html";
+          });
 
-        document.getElementById("score-btn").addEventListener("click", function () {
-          window.location.href = "score.html";
-        });
+        document
+          .getElementById("score-btn")
+          .addEventListener("click", function () {
+            window.location.href = "score.html";
+          });
       });
     </script>
-    
+
     <script src="javascript/game.js"></script>
   </body>
 </html>
-
-
